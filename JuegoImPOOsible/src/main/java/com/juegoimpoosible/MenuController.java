@@ -4,9 +4,12 @@
  */
 package com.juegoimpoosible;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -21,6 +24,9 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    @FXML
+    private void goToJuego(MouseEvent event) throws IOException {
+        App.setRoot("juegoView");
     }    
-    
 }
