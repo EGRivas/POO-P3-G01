@@ -70,11 +70,19 @@ public class JuegoViewController implements Initializable {
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+        img50.getStyleClass().add("comodin");
+        imgComp.getStyleClass().add("comodin");
+        imgCurso.getStyleClass().add("comodin");
         contComodines.getChildren().add(img50);
         contComodines.getChildren().add(imgComp);
         contComodines.getChildren().add(imgCurso);
-        
         contComodines.setAlignment(Pos.TOP_CENTER);
+        borderPane.getStylesheets().add(getClass().getResource("Styles.css").toExternalForm());
+        botonA.getStyleClass().add("button-styled");
+        botonB.getStyleClass().add("button-styled");
+        botonC.getStyleClass().add("button-styled");
+        botonD.getStyleClass().add("button-styled");
+
     }
     
 }

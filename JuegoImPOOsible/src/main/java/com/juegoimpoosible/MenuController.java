@@ -10,6 +10,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -24,6 +27,13 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        panel.getStylesheets().add(getClass().getResource("Styles.css").toExternalForm());
+        config.getStyleClass().add("menu-buttons");
+        report.getStyleClass().add("menu-buttons");
+        newGame.getStyleClass().add("menu-buttons");
+        panel.getStyleClass().add("fondo");
+        titulo.getStyleClass().add("titulo");
     }
     @FXML
     private void goToJuego(MouseEvent event) throws IOException {
@@ -33,4 +43,20 @@ public class MenuController implements Initializable {
     private void goToConfiguracion(MouseEvent event) throws IOException {
         App.setRoot("configuracion");
     }
+
+    @FXML
+    private Button report;
+    @FXML
+    private Button newGame;
+    @FXML
+    private Button config;
+    @FXML
+    private BorderPane panel;
+    @FXML
+    private Text titulo;
+
+
+
+
+
 }

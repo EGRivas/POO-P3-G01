@@ -1,0 +1,50 @@
+.button-styled {
+	-fx-background-radius:6px;
+	-fx-background-color: #19A7CE;
+	-fx-transition: 0.2s;
+}
+
+.button-styled:hover {
+	-fx-cursor: hand;
+  	-fx-background-color: #146C94;
+	-fx-scale-y: 1.03;
+}
+
+.button-styled:pressed {
+  -fx-opacity: 0.7;
+}
+
+.comodin:hover {
+	-fx-cursor: hand;
+}
+
+.comodin:pressed {
+	-fx-opacity: 0.7;
+}
+
+.menu-buttons {
+	-fx-padding: 8px 18px 8px 18px;
+	-fx-background-color: #AFD3E2;
+
+}
+
+.menu-buttons:hover {
+	-fx-cursor: hand;
+	-fx-scale-x: 1.03;
+	-fx-scale-y: 1.03;
+
+}
+
+.menu-buttons:pressed {
+	-fx-opacity: 0.7;
+}
+
+.fondo {
+	-fx-background-color: #F6F1F1;
+}
+
+.titulo{
+	/* Hacer bonito el titulo */
+	-fx-font-family: 'Comic Sans MS';
+	-fx-font-size: 25;
+}
