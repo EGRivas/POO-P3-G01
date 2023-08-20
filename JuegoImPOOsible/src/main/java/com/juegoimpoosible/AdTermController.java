@@ -29,6 +29,11 @@ public class AdTermController implements Initializable {
     }
     @FXML
     private void goBack() throws IOException, IOException {
-        App.setRoot("configuracion"); // Cambiar a la vista de configuración
+        App.setRoot("configuracion");
     }
+    @FXML
+    private void goToIngTerm() throws IOException {
+        App.setRoot("ingTerm");
+    }
+
 }
