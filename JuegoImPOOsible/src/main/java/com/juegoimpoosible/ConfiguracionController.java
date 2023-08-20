@@ -15,6 +15,10 @@ public class ConfiguracionController implements Initializable {
     }
     @FXML
     private void goBack(MouseEvent event) throws IOException {
-        App.setRoot("menu"); // Cambia "menu" por el nombre del archivo FXML del menú
+        App.setRoot("menu");
+    }
+    @FXML
+    private void goToAdTerm(MouseEvent event) throws IOException {
+        App.setRoot("adTerm");
     }
 }

@@ -44,6 +44,7 @@ public class MenuController implements Initializable {
         App.setRoot("configuracion");
     }
 
+
     @FXML
     private Button report;
     @FXML
