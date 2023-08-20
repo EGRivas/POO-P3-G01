@@ -4,11 +4,12 @@
  */
 package com.juegoimpoosible.modelo;
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  *
  * @author Administrador
  */
-public class Termino {
+public class Termino implements Serializable{
     //variables de instancia
     private String anio;
     private String periodo;

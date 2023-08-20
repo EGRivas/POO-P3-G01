@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
 public class Archivar {
     public static void writeTerms(ArrayList<Termino> terms){
         try {
-            FileOutputStream fileOut = new FileOutputStream("files/terms.ser");
+            FileOutputStream fileOut = new FileOutputStream("JuegoImPOOsible/target/generated-sources/terms.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
             out.writeObject(terms);
@@ -97,7 +97,7 @@ public class Archivar {
     public static ArrayList<Termino> readTerms(){
         ArrayList<Termino> deserializedList = new ArrayList<Termino>();
         try {
-            FileInputStream fileIn = new FileInputStream("files/terms.ser");
+            FileInputStream fileIn = new FileInputStream("JuegoImPOOsible/target/generated-sources/terms.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
 
             deserializedList = (ArrayList<Termino>) in.readObject();
