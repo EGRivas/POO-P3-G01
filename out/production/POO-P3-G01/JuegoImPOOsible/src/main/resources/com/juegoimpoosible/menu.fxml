@@ -20,8 +20,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#goToConfiguracion" text="Configuraciones" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" onMouseClicked="#goToJuego" text="Nuevo Juego" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Configuraciones" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" text="Nuevo Juego" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" text="Reporte" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Juego ImPOOsible" GridPane.rowIndex="1" />
          </children>
