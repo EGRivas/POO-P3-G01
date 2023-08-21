@@ -39,6 +39,11 @@ public class AdTermController implements Initializable {
     private void goToEdiTerm() throws IOException {
         App.setRoot("ediTerm");
     }
+    @FXML
+    private void goToConfJuego() throws IOException {
+        App.setRoot("confJuego");
+    }
+
 
 
 }

@@ -54,7 +54,7 @@
             <children>
                 <Button mnemonicParsing="false" text="Ingresar Término" GridPane.columnIndex="1" onAction="#goToIngTerm" />
                 <Button mnemonicParsing="false" text="Editar Término" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#goToEdiTerm" />
-                <Button mnemonicParsing="false" text="Configurar Término para el Juego" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button mnemonicParsing="false" text="Configurar Término para el Juego" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#goToConfJuego" />
                 <Button mnemonicParsing="false" text="Regresar" GridPane.rowIndex="2" onAction="#goBack" />
             </children>
         </GridPane>
