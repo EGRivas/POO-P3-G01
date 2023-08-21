@@ -18,21 +18,33 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 public class Archivar {
+    
     public static void writeTerms(ArrayList<Termino> terms){
         try {
             FileOutputStream fileOut = new FileOutputStream("JuegoImPOOsible/target/generated-sources/terms.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
+            
             out.writeObject(terms);
-
             out.close();
             fileOut.close();
             System.out.println("guardado en terms.ser");
         } catch (IOException e) {
             e.printStackTrace();
+            //writeTerms Ruta: validacion de la ruta ingresada por errores
+            try{
+                FileOutputStream fileOut = new FileOutputStream("target/generated-sources/terms.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                
+                out.writeObject(terms);
+                out.close();
+                fileOut.close();
+                System.out.println("guardado en terms.ser");
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
         }
     }
-
+    
     public static void writeGames(ArrayList<Juego> juegos){
         try {
             FileOutputStream fileOut = new FileOutputStream("files/games.ser");
@@ -107,10 +119,20 @@ public class Archivar {
 
             // Use the deserializedList
         } catch (IOException | ClassNotFoundException e) {
+            //readTermsRuta: validacion de la ruta ingresada por errores
             System.out.println("[-]Serial no ha sido creado");
+            try{
+                FileInputStream fileIn = new FileInputStream("target/generated-sources/terms.ser");
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                deserializedList = (ArrayList<Termino>) in.readObject();
+                
+                in.close();
+                fileIn.close();
+            } catch(IOException | ClassNotFoundException ex){
+                System.out.println("[-]Serial no ha sido creado");
+            }
         }
         return deserializedList;
-
     }
 
     public static ArrayList<Juego> readGames(){

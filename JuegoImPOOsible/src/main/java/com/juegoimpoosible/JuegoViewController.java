@@ -66,10 +66,17 @@ public class JuegoViewController implements Initializable {
             img50 = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/50.png"),50, 50,false,false));
             imgComp = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/comp.png"),50, 50,false,false));
             imgCurso = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/curso.png"),50, 50,false,false));
-            
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
+            try{
+                img50 = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/50.png"),50, 50,false,false));
+                imgComp = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/comp.png"),50, 50,false,false));
+                imgCurso = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/curso.png"),50, 50,false,false));
+            } catch(FileNotFoundException e){
+                System.out.println(e.getMessage());
+            }
         }
+        
         img50.getStyleClass().add("comodin");
         imgComp.getStyleClass().add("comodin");
         imgCurso.getStyleClass().add("comodin");
