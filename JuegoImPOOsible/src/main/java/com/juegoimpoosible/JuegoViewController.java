@@ -63,15 +63,15 @@ public class JuegoViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         contComodines.getChildren().clear();
         try {
-            img50 = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/50.png"),50, 50,false,false));
-            imgComp = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/comp.png"),50, 50,false,false));
-            imgCurso = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/src/main/java/imagenes/curso.png"),50, 50,false,false));
+            img50 = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/imagenes/50.png"),50, 50,false,false));
+            imgComp = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/imagenes/comp.png"),50, 50,false,false));
+            imgCurso = new ImageView(new Image(new FileInputStream("JuegoImPOOsible/imagenes/curso.png"),50, 50,false,false));
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
             try{
-                img50 = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/50.png"),50, 50,false,false));
-                imgComp = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/comp.png"),50, 50,false,false));
-                imgCurso = new ImageView(new Image(new FileInputStream("src/main/java/imagenes/curso.png"),50, 50,false,false));
+                img50 = new ImageView(new Image(new FileInputStream("imagenes/50.png"),50, 50,false,false));
+                imgComp = new ImageView(new Image(new FileInputStream("imagenes/comp.png"),50, 50,false,false));
+                imgCurso = new ImageView(new Image(new FileInputStream("imagenes/curso.png"),50, 50,false,false));
             } catch(FileNotFoundException e){
                 System.out.println(e.getMessage());
             }
