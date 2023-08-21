@@ -41,8 +41,14 @@ public class EdiTermController implements Initializable {
         if (selectedTerm != null) {
             selectedTerm.setPeriodo(periodoTextField.getText());
             selectedTerm.setAnio(anioTextField.getText());
+            ArrayList<Termino> terms = new ArrayList<>(termListView.getItems()); // Obtener la lista actualizada
             termListView.refresh(); // Actualizar la vista del ListView
+            Archivar.writeTerms(terms);
         }
+    }
+    @FXML
+    private void goBackToAdTerm() throws IOException {
+        App.setRoot("adTerm");
     }
 
 
