@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField layoutX="28.0" layoutY="88.0" promptText="Ingresar año" />
+                  <TextField layoutX="200.0" layoutY="88.0" promptText="Ingresar termino" />
+                  <Label layoutX="130.0" layoutY="14.0" text="Administrador de materias" />
+                  <TextField layoutX="28.0" layoutY="161.0" promptText="Nombre de la materia" />
+                  <TextField layoutX="200.0" layoutY="161.0" promptText="Código de la materia" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox layoutX="25.0" layoutY="38.0" prefWidth="150.0" />
+                  <Label layoutX="25.0" layoutY="14.0" text="Cantidad de Niveles:" />
+                  <RadioButton layoutX="200.0" layoutY="14.0" mnemonicParsing="false" text="Editar Materia" />
+                  <RadioButton layoutX="200.0" layoutY="42.0" mnemonicParsing="false" text="Agregar Materia" />
+                  <Button layoutX="295.0" layoutY="147.0" mnemonicParsing="false" text="Guardar" />
+                  <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" text="Regresar" />
+                  <MenuButton layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

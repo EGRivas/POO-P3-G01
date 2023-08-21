@@ -40,6 +40,11 @@ public class Paralelo implements Serializable{
     public void addEstudiante(Estudiante estudiante){
         estudiantes.add(estudiante);
     }
+    public void addEstudiantes(ArrayList<Estudiante> estudiantes){
+        if(!estudiantes.isEmpty()){
+            this.estudiantes.addAll(estudiantes);
+        }
+    }
     public String toString(){
         return numero;
     }
