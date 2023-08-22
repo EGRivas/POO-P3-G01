@@ -179,7 +179,6 @@ public class Archivar {
                 fileIn.close();
             } catch(IOException | ClassNotFoundException ex){
                 System.out.println("[-]Serial no ha sido creado");
-                ex.printStackTrace();
             }
         }
         return deserializedList;

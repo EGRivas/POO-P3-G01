@@ -8,35 +8,38 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.adMateriaController">
    <right>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="subchart" onMouseClicked="#chart" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="paneA" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="28.0" layoutY="88.0" promptText="Ingresar año" />
-                  <TextField layoutX="200.0" layoutY="88.0" promptText="Ingresar termino" />
+                  <TextField fx:id="year" layoutX="28.0" layoutY="88.0" promptText="Ingresar año" />
+                  <TextField fx:id="numTerm" layoutX="200.0" layoutY="88.0" promptText="Ingresar termino" />
                   <Label layoutX="130.0" layoutY="14.0" text="Administrador de materias" />
-                  <TextField layoutX="28.0" layoutY="161.0" promptText="Nombre de la materia" />
-                  <TextField layoutX="200.0" layoutY="161.0" promptText="Código de la materia" />
+                  <TextField fx:id="subName" layoutX="28.0" layoutY="161.0" promptText="Nombre de la materia" />
+                  <TextField fx:id="subCode" layoutX="200.0" layoutY="161.0" promptText="Código de la materia" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="PaneB" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ChoiceBox layoutX="25.0" layoutY="38.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="LevelQuantity" layoutX="25.0" layoutY="38.0" prefWidth="150.0" />
                   <Label layoutX="25.0" layoutY="14.0" text="Cantidad de Niveles:" />
-                  <RadioButton layoutX="200.0" layoutY="14.0" mnemonicParsing="false" text="Editar Materia" />
-                  <RadioButton layoutX="200.0" layoutY="42.0" mnemonicParsing="false" text="Agregar Materia" />
-                  <Button layoutX="295.0" layoutY="147.0" mnemonicParsing="false" text="Guardar" />
-                  <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" text="Regresar" />
+                  <RadioButton fx:id="editSub" layoutX="200.0" layoutY="14.0" mnemonicParsing="false" text="Editar Materia">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="addSub" layoutX="200.0" layoutY="42.0" mnemonicParsing="false" selected="true" text="Agregar Materia" toggleGroup="$group" />
+                  <Button layoutX="295.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#saveChanges" text="Guardar" />
+                  <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Regresar" />
                   <MenuButton layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />

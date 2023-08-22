@@ -24,8 +24,12 @@ public class AdTermController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<Termino> terms = Archivar.readTerms();
-        termListView.getItems().addAll(terms);
+        try {
+            ArrayList<Termino> terms = Archivar.readTerms();
+            termListView.getItems().addAll(terms);
+        } catch(Exception e) {
+            System.out.println("[-]No se a creado el archivo serializado");
+        }
     }
     @FXML
     private void goBack() throws IOException, IOException {

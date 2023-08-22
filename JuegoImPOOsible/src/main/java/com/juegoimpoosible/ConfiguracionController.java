@@ -21,4 +21,10 @@ public class ConfiguracionController implements Initializable {
     private void goToAdTerm(MouseEvent event) throws IOException {
         App.setRoot("adTerm");
     }
+
+    @FXML
+    private void goToAdSub(MouseEvent event) throws IOException {
+        App.setRoot("adMateria");
+    }
+
 }

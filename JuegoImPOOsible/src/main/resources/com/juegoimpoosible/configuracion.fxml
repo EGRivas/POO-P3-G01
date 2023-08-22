@@ -28,7 +28,7 @@
                </font>
             </Label>
              <Button mnemonicParsing="false" text="Administrar términos académicos" GridPane.columnIndex="1" onMouseClicked="#goToAdTerm" />
-            <Button mnemonicParsing="false" text="Administrar materias y paralelos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Administrar materias y paralelos" GridPane.columnIndex="1" onMouseClicked="#goToAdSub" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" text="Administrar preguntas" GridPane.columnIndex="1" GridPane.rowIndex="2" />
              <Button mnemonicParsing="false" text="SALIR" onMouseClicked="#goBack" GridPane.rowIndex="2" />
          </children>
