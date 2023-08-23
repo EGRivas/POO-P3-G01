@@ -50,6 +50,38 @@ public class adMateriaController  implements Initializable{
             }
         });
 
+
+    }
+
+    @FXML
+    private void mainMenu(){
+
+        MenuItem item2 = new MenuItem("Administrar Paralelos");
+        MenuItem item3 = new MenuItem("Administrar Estudiantes");
+        menuseichon.getItems().addAll(item2, item3);
+        item2.setOnAction(actionEvent -> menuAdParalelos());
+        item3.setOnAction(actionEvent -> menuAdEstudiantes());
+        if(menuseichon.getItems().size() >= 4){
+            menuseichon.getItems().remove(2);
+            menuseichon.getItems().remove(2);
+        }
+    }
+
+    private void menuAdParalelos(){
+        try{
+            App.setRoot("adParalelo");
+        }catch(IOException e){
+            System.out.println("[-]No se pudo encontrar");
+        }
+
+    }
+    private void menuAdEstudiantes(){
+        try{
+            App.setRoot("adEstudiantes");
+        }catch(IOException e){
+            System.out.println("[-]No se pudo encontrar");
+        }
+
     }
 
     @FXML
@@ -158,6 +190,8 @@ public class adMateriaController  implements Initializable{
         }
 
     }
+    @FXML
+    private MenuButton menuseichon;
 
     @FXML
     private void goBack(MouseEvent event) throws IOException {

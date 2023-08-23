@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -40,12 +39,7 @@
                   <RadioButton fx:id="addSub" layoutX="200.0" layoutY="42.0" mnemonicParsing="false" selected="true" text="Agregar Materia" toggleGroup="$group" />
                   <Button layoutX="295.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#saveChanges" text="Guardar" />
                   <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Regresar" />
-                  <MenuButton layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
+                  <MenuButton fx:id="menuseichon" layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu" onMouseClicked="#mainMenu"/>
                </children>
             </Pane>
          </children>
