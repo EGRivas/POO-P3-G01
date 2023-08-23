@@ -46,6 +46,7 @@ public class Paralelo implements Serializable{
         }
     }
     public String toString(){
-        return numero;
+        //return numero;
+        return "paralelo: "+numero;
     }
 }

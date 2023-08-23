@@ -78,6 +78,7 @@ public class Materia implements Serializable{
     }*/
 //Metodo toString
     public String toString(){
-        return nombre + ", paralelos: " + paralelos;
+        //return nombre + ", paralelos: " + paralelos;
+        return nombre;
     }
 }

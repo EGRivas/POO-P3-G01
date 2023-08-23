@@ -78,6 +78,10 @@ public class Juego implements Serializable{
             }
         }
     }
+    //constructor para prueba
+    public Juego(Materia m){
+        materia = m;
+    }
 //Método:
     public static void setTermino(Termino t){
         termino = t;
@@ -304,5 +308,12 @@ public class Juego implements Serializable{
         return premio;
     }
 
+    //setters:
+    public void setNumPreNivel(int n){
+        numPreNivel = n;
+    }
+    public void setNivelMax(int n){
+        nivelMax = n;
+    }
 
 }

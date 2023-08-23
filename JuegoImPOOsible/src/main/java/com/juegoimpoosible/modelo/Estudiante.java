@@ -20,6 +20,10 @@ public class Estudiante implements Serializable{
         this.matricula = matricula;
         this.correoInst = correoInst;
     }
+    //constructor auxiliar
+    public Estudiante(String matricula){
+        this.matricula = matricula;
+    }
     //getters
     public String getNombre(){
         return nombre;
@@ -32,5 +36,15 @@ public class Estudiante implements Serializable{
     }
     public String toString(){
         return nombre+", "+matricula+", "+correoInst;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o==this) return true;
+        if(o != null && getClass() == o.getClass()){
+            Estudiante other = (Estudiante) o;
+            return this.getMatricula().equals(other.getMatricula());
+        } else{
+            return false;
+        }
     }
 }

@@ -4,9 +4,12 @@
  */
 package com.juegoimpoosible;
 
+import com.juegoimpoosible.modelo.*;
+import com.juegoimpoosible.funcionalidad.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,6 +57,7 @@ public class JuegoViewController implements Initializable {
     private ImageView imgComp;
     private ImageView imgCurso;
     
+    private static ArrayList<Preguntas> preguntas;
     
     /**
      * Initializes the controller class.

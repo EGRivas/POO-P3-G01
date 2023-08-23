@@ -37,7 +37,7 @@ public class MenuController implements Initializable {
     }
     @FXML
     private void goToJuego(MouseEvent event) throws IOException {
-        App.setRoot("juegoView");
+        App.setRoot("confJuego");
     }
     @FXML
     private void goToConfiguracion(MouseEvent event) throws IOException {
