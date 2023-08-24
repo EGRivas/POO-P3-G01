@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class ConfJuegoController implements Initializable{
     @FXML
@@ -35,6 +36,18 @@ public class ConfJuegoController implements Initializable{
     private CheckBox participanteCheck;
     @FXML
     private CheckBox apoyoCheck;
+    @FXML
+    private AnchorPane paneAnc;
+    @FXML
+    private Label labelTitulo;
+    @FXML
+    private Label labelPreguntas;
+    @FXML
+    private Label labelParticipante;
+    @FXML
+    private Label labelApoyo;
+
+
     
     private boolean cond1; 
     private boolean cond2;
@@ -51,6 +64,8 @@ public class ConfJuegoController implements Initializable{
     
     @FXML
     private Button regreso;
+    @FXML
+    private Button juegoVista;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,6 +74,7 @@ public class ConfJuegoController implements Initializable{
         //reinicio de los valores
         cmbMateria.getItems().clear();
         listaMaterias.clear();
+        recursos();
         //Creacion de estudiantes para la prueba
         ArrayList<Estudiante> lEstudiantesP03 = new ArrayList<>();
         String ruta = "archivos/POO_P3_2023_1T.csv";
@@ -71,7 +87,8 @@ public class ConfJuegoController implements Initializable{
                 lEstudiantesP03.add(e1);
             }
         } catch(IOException e){
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.err.println("[-]Something Unexpected happened, but it's ok");
             ruta = "JuegoImPOOsible/archivos/POO_P3_2023_1T.csv";
             try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
                 br.readLine();
@@ -329,6 +346,26 @@ public class ConfJuegoController implements Initializable{
         if(valido == cond1 == cond2 == true){
             App.setRoot("juegoView");   
         }
+    }
+
+    private void recursos(){
+        paneAnc.getStylesheets().add(getClass().getResource("Styles.css").toExternalForm());
+        cmbMateria.getStyleClass().add("combo-boxes");
+        cmbParalelo.getStyleClass().add("combo-boxes");
+        numPregField.getStyleClass().add("text-fields");
+        participanteField.getStyleClass().add("text-fields");
+        apoyoField.getStyleClass().add("text-fields");
+        labelTitulo.getStyleClass().add("labels");
+        labelApoyo.getStyleClass().add("labels");
+        labelParticipante.getStyleClass().add("labels");
+        labelPreguntas.getStyleClass().add("labels");
+        regreso.getStyleClass().add("menu-buttons");
+        juegoVista.getStyleClass().add("menu-buttons");
+        apoyoCheck.getStyleClass().add("combo-boxes");
+        participanteCheck.getStyleClass().add("combo-boxes");
+        paneAnc.getStyleClass().add("fondo");
+
+
     }
     
 }

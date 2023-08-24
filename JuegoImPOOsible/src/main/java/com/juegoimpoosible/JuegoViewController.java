@@ -18,11 +18,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -36,7 +32,7 @@ import javafx.scene.layout.VBox;
  *
  * @author administrador
  */
-public class JuegoViewController implements Initializable {
+public class JuegoViewController implements Initializable, Runnable {
 
     @FXML
     private Label lblTiempo;
@@ -60,6 +56,8 @@ public class JuegoViewController implements Initializable {
     private VBox contAvancePreguntas;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private SplitPane splitted;
     private ImageView img50;
     private ImageView imgComp;
     private ImageView imgCurso;
@@ -87,10 +85,11 @@ public class JuegoViewController implements Initializable {
     /**
      * Initializes the controller class.
      */
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //esto solo ocurre una vez 
+        //esto solo ocurre una vez
         cont = 0;
         iniciarRecursos();
         juego = ConfJuegoController.juegoIn;
@@ -135,7 +134,29 @@ public class JuegoViewController implements Initializable {
         img50.setOnMouseClicked(e -> comodin5050());
         imgComp.setOnMouseClicked(e -> comodinApoyo());
         imgCurso.setOnMouseClicked(e -> comodinClase());
+
+
         
+    }
+
+    @Override
+    public void run(){
+        for(int i = 60; i >= 0; i--){
+            int finalTime = i;
+            if(lblTiempo != null){
+                Platform.runLater(() -> lblTiempo.setText(finalTime + "s"));
+            }
+            try{
+                Thread.sleep(1000);// Esperar un segundo
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            if (finalTime == 0) {
+                // Aquí puedes llamar a una función para manejar el fin del juego debido a que el tiempo se ha agotado.
+                Platform.runLater(() -> juegoTerminado());
+                break;
+            }
+        }
     }
     
     public void iniciarRecursos(){
@@ -167,6 +188,10 @@ public class JuegoViewController implements Initializable {
         botonB.getStyleClass().add("button-styled");
         botonC.getStyleClass().add("button-styled");
         botonD.getStyleClass().add("button-styled");
+        lblPregunta.getStyleClass().add("labels");
+        borderPane.getStyleClass().add("fondo");
+        splitted.getStyleClass().add("fondo");
+        questionView.getStyleClass().add("chart");
     }
     
     @FXML
@@ -228,6 +253,7 @@ public class JuegoViewController implements Initializable {
             if(cont%juego.getNumPreNivel() == 0){
                 alcanzado++;
                 juego.setNivelAlcanzado(alcanzado);
+                timer();
             }
             
         } else{
@@ -317,17 +343,16 @@ public class JuegoViewController implements Initializable {
     }
     
     //thread de los segundos
-    /*public void timer(){
-        Thread th = new Thread(()->{
-            for(int i = 0;i<60;i++){
-                Platform.runLater(()->lblTiempo.setText(i+"s"));
-                try{
-                    Thread.sleep(2000);
-                } catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        th.start();
-    }*/
+
+    public void timer(){
+
+        lblTiempo.setText("60s");
+
+        JuegoViewController juegoViewController = new JuegoViewController();
+
+        Thread thread = new Thread(juegoViewController);
+
+        thread.start();
+
+    }
 }

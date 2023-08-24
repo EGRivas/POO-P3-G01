@@ -39,7 +39,7 @@
                   <RadioButton fx:id="addSub" layoutX="200.0" layoutY="42.0" mnemonicParsing="false" selected="true" text="Agregar Materia" toggleGroup="$group" />
                   <Button layoutX="295.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#saveChanges" text="Guardar" />
                   <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Regresar" />
-                  <MenuButton fx:id="menuseichon" layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu" onMouseClicked="#mainMenu"/>
+                  <MenuButton fx:id="menuseichon" layoutX="198.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#mainMenu" text="Cambio de menu" />
                </children>
             </Pane>
          </children>

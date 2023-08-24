@@ -27,7 +27,7 @@
       </VBox>
    </right>
    <center>
-      <SplitPane dividerPositions="0.3592964824120603" orientation="VERTICAL" prefHeight="374.0" prefWidth="491.0" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="splitted" dividerPositions="0.3592964824120603" orientation="VERTICAL" prefHeight="374.0" prefWidth="491.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="844.0">
                <children>
@@ -35,6 +35,11 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
+                  <Label fx:id="lblTiempo" layoutX="14.0" layoutY="211.0" text="60s">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="416.0">
@@ -77,14 +82,6 @@
       </SplitPane>
    </center>
    <bottom>
-      <HBox prefHeight="18.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="lblTiempo" text="60s">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
+      <HBox prefHeight="18.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

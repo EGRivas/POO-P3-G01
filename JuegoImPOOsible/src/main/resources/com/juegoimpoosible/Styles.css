@@ -1,12 +1,13 @@
 .button-styled {
 	-fx-background-radius:6px;
 	-fx-background-color: #19A7CE;
+	-fx-font-family: 'Comic Sans MS';
 	-fx-transition: 0.2s;
 }
 
 .button-styled:hover {
 	-fx-cursor: hand;
-  	-fx-background-color: #146C94;
+  -fx-background-color: #146C94;
 	-fx-scale-y: 1.03;
 }
 
@@ -25,6 +26,7 @@
 .menu-buttons {
 	-fx-padding: 8px 18px 8px 18px;
 	-fx-background-color: #AFD3E2;
+	-fx-font-family: 'Comic Sans MS';
 
 }
 
@@ -41,6 +43,7 @@
 
 .fondo {
 	-fx-background-color: #F6F1F1;
+	-fx-font-family: 'Comic Sans MS';
 }
 
 .titulo{
@@ -48,3 +51,47 @@
 	-fx-font-family: 'Comic Sans MS';
 	-fx-font-size: 25;
 }
+
+.chart{
+	-fx-background-color: #AFD3E2;
+	-fx-font-family: 'Comic Sans MS';
+}
+
+.chart:hover{
+	-fx-cursor: hand;
+}
+
+.chart:pressed {
+	-fx-opacity: 0.8;
+}
+
+.combo-boxes{
+	-fx-background-color: #AFD3E2;
+	-fx-background-radius: 6px;
+	-fx-font-family: 'Comic Sans MS';
+
+}
+
+.combo-boxes:hover {
+	-fx-cursor: hand;
+}
+
+.combo-boxes: pressed{
+	-fx-opacity: 0.8;
+}
+
+.text-fields {
+	-fx-background-color: #AFD3E2;
+	-fx-background-radius: 6px;
+	-fx-font-family: 'Comic Sans MS';
+}
+
+.text-fields: pressed{
+	-fx-opacity: 0.8;
+}
+
+.labels {
+	-fx-font-family: 'Comic Sans MS';
+}
+
+

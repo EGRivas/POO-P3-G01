@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.PremioNivelController">
+<AnchorPane fx:id="paneAnc" id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.PremioNivelController">
    <children>
-      <Label layoutX="241.0" layoutY="53.0" text="¡Has perdido!">
+      <Label fx:id="labelLost" layoutX="241.0" layoutY="53.0" text="¡Has perdido!">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="81.0" layoutY="136.0" text="Pero no te preocupes, ¡has conseguido un premio por tu esfuerzo!">
+      <Label fx:id="labelConsuelo" layoutX="81.0" layoutY="136.0" text="Pero no te preocupes, ¡has conseguido un premio por tu esfuerzo!">
          <font>
             <Font size="15.0" />
          </font>

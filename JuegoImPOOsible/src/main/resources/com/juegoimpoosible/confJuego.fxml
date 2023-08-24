@@ -7,21 +7,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.ConfJuegoController">
+<AnchorPane fx:id="paneAnc" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.ConfJuegoController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Término configurado para el juego:" />
+      <Label fx:id="labelTitulo" layoutX="14.0" layoutY="14.0" text="Término configurado para el juego:" />
       <Label fx:id="lblTermino" layoutX="208.0" layoutY="14.0" text="2023-1" />
       <ComboBox fx:id="cmbMateria" layoutX="58.0" layoutY="64.0" onAction="#cargaParalelos" prefWidth="150.0" promptText="Seleccione Materia:" />
       <ComboBox fx:id="cmbParalelo" layoutX="389.0" layoutY="64.0" onAction="#paraleloSelect" prefWidth="150.0" promptText="Seleccione Paralelo:" />
       <TextField fx:id="numPregField" layoutX="315.0" layoutY="134.0" onAction="#validarPreguntas" />
-      <Label layoutX="21.0" layoutY="138.0" text="Ingrese número de preguntas por nivel:" />
+      <Label fx:id="labelPreguntas" layoutX="21.0" layoutY="138.0" text="Ingrese número de preguntas por nivel:" />
       <TextField fx:id="participanteField" layoutX="315.0" layoutY="211.0" onAction="#usoParticipante" />
-      <Label layoutX="21.0" layoutY="215.0" text="Ingrese la matrícula del participante:" />
-      <Label layoutX="21.0" layoutY="286.0" text="Ingrese la matrícula del compañero de apoyo:" />
+      <Label fx:id="labelParticipante" layoutX="21.0" layoutY="215.0" text="Ingrese la matrícula del participante:" />
+      <Label fx:id="labelApoyo" layoutX="21.0" layoutY="286.0" text="Ingrese la matrícula del compañero de apoyo:" />
       <TextField fx:id="apoyoField" layoutX="315.0" layoutY="282.0" onAction="#usoApoyo" />
       <CheckBox fx:id="participanteCheck" layoutX="503.0" layoutY="215.0" mnemonicParsing="false" onAction="#participanteAleatorio" text="Aleatorio" />
       <Button fx:id="regreso" layoutX="27.0" layoutY="354.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
       <CheckBox fx:id="apoyoCheck" layoutX="504.0" layoutY="286.0" mnemonicParsing="false" onAction="#apoyoAleatorio" text="Aleatorio" />
-      <Button layoutX="499.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToJuegoView" text="Crear Juego" />
+      <Button fx:id="juegoVista" layoutX="499.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToJuegoView" text="Crear Juego" />
    </children>
 </AnchorPane>

@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -23,12 +25,25 @@ public class PremioNivelController implements Initializable {
     private TextField lblPremio;
     @FXML
     private Button buttonBack;
+    @FXML
+    private AnchorPane paneAnc;
+    @FXML
+    private Label labelConsuelo;
+    @FXML
+    private Label labelLost;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        paneAnc.getStylesheets().add(getClass().getResource("Styles.css").toExternalForm());
+        paneAnc.getStyleClass().add("fondo");
+        buttonBack.getStyleClass().add("menu-buttons");
+        labelConsuelo.getStyleClass().add("labels");
+        labelLost.getStyleClass().add("labels");
+        lblPremio.getStyleClass().add("text-fields");
         
     }
     @FXML
