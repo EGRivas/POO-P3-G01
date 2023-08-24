@@ -25,12 +25,14 @@ public class Juego implements Serializable{
     private int cantidadPreguntasContestadas = 0;
     private int comodinesUtilizados;
     private int premio;
+    private String premioGanado;
 
     //agrego disponibilidad de comodines como variable de instancia
 
     private int[] discomodines = {1, 1, 1};
 
     private TipoComodin[] comodines = TipoComodin.values();
+    private ArrayList<TipoComodin> comodinesUsados;
 
 
 
@@ -280,6 +282,12 @@ public class Juego implements Serializable{
     }
 
     //getters:
+    public int getNumPreNivel(){
+        return numPreNivel;
+    }
+    public int getNivelMax(){
+        return nivelMax;
+    }
     public String getCodigoMateria(){
         return materia.getCodigo();
     }
@@ -307,6 +315,13 @@ public class Juego implements Serializable{
     public int getPremio(){
         return premio;
     }
+    public int[] getDiscomodines(){
+        return discomodines;
+    }
+    public TipoComodin[] getComodines(){
+        return comodines;
+    }
+    
 
     //setters:
     public void setNumPreNivel(int n){
@@ -315,5 +330,31 @@ public class Juego implements Serializable{
     public void setNivelMax(int n){
         nivelMax = n;
     }
-
+    public void setMateria(Materia m){
+        materia = m;
+    }
+    public void setParalelo(Paralelo p){
+        paralelo = p;
+    }
+    public void setParticipante(Estudiante e){
+        participante = e;
+    }
+    public void setComApoyo(Estudiante e){
+        comApoyo = e;
+    }
+    public void setNivelAlcanzado(int n){
+        nivelAlcanzado = n;
+    }
+    public void setCantidadPreguntasContestadas(int n){
+        cantidadPreguntasContestadas = n;
+    }
+    public void setComodinesUtilizados(int n){
+        comodinesUtilizados = n;
+    }
+    public void setPremioGanado(String prem){
+        premioGanado = prem;
+    }
+    public void setComodinesUsados(ArrayList<TipoComodin> c){
+        comodinesUsados = c;
+    }
 }

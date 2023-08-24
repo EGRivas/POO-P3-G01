@@ -36,24 +36,30 @@ public class ConfJuegoController implements Initializable{
     @FXML
     private CheckBox apoyoCheck;
     
+    private boolean cond1; 
+    private boolean cond2;
     
-    private static Juego juegoIn;
-    private static ArrayList<Materia> listaMaterias = new ArrayList<>(); 
-    private static ArrayList<Preguntas> preguntas;
-    private static Materia materiaSelect;
-    private static Paralelo paraleloSelect;
-    private static Estudiante participante;
-    private static Estudiante apoyo;
+    static Juego juegoIn;
+    static ArrayList<Materia> listaMaterias = new ArrayList<>(); 
+    static ArrayList<Preguntas> preguntas;
+    static Materia materiaSelect;
+    static Paralelo paraleloSelect;
+    static Estudiante participante;
+    static Estudiante apoyo;
     
-    private static boolean valido;
+    private boolean valido;
+    
     @FXML
     private Button regreso;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Creacion de estudiantes para la prueba
+        cond1 = false;
+        cond2 = false;
+        //reinicio de los valores
         cmbMateria.getItems().clear();
         listaMaterias.clear();
+        //Creacion de estudiantes para la prueba
         ArrayList<Estudiante> lEstudiantesP03 = new ArrayList<>();
         String ruta = "archivos/POO_P3_2023_1T.csv";
         try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
@@ -168,14 +174,14 @@ public class ConfJuegoController implements Initializable{
         
         //configuracion contenedores
         cmbMateria.getItems().addAll(listaMaterias);
-        numPregField.setVisible(false);
-        participanteField.setVisible(false);
-        participanteCheck.setVisible(false);
-        apoyoField.setVisible(false);
-        apoyoCheck.setVisible(false);
+        numPregField.setDisable(true);
+        participanteField.setDisable(true);
+        participanteCheck.setDisable(true);
+        apoyoField.setDisable(true);
+        apoyoCheck.setDisable(true);
     }
     
-    
+    //carga los paralelos de la materia en el cmbParalelo
     @FXML
     public void cargaParalelos(){
         cmbParalelo.getItems().clear();
@@ -186,14 +192,17 @@ public class ConfJuegoController implements Initializable{
     @FXML
     public void paraleloSelect(){
         paraleloSelect = cmbParalelo.getValue();
-        numPregField.setVisible(true);
-        participanteField.setVisible(true);
-        participanteCheck.setVisible(true);
-        apoyoField.setVisible(true);
-        apoyoCheck.setVisible(true);
+        numPregField.setDisable(false);
+        participanteField.setDisable(false);
+        participanteCheck.setDisable(false);
+        apoyoField.setDisable(false);
+        apoyoCheck.setDisable(false);
         
+        //esto es solo para probar
+        System.out.println(paraleloSelect.getEstudiantes().size());
     }
     
+    //metodo ya probado y funcional
     @FXML
     public void validarPreguntas(){
         preguntas = materiaSelect.getPreguntas();
@@ -206,7 +215,8 @@ public class ConfJuegoController implements Initializable{
             int num = sc.nextInt(); //numero de preguntas por nivel
             sc.nextLine();
             */
-            int num = Integer.getInteger(numPregField.getText());
+            
+            int num = Integer.parseInt((numPregField.getText()));
             //se hace una lista de enteros con el numero de niveles que hay en cada pregunta
             ArrayList<Integer> niveles = new ArrayList<>(); 
             for (Preguntas preg: preguntas){
@@ -229,8 +239,13 @@ public class ConfJuegoController implements Initializable{
                 valido = true;
                 juegoIn.setNumPreNivel(num);
                 juegoIn.setNivelMax(maxNivel); //nivel maximo de preguntas
+            } else {
+                System.out.println("mensaje de alerta, valor incorrecto");
+                valido = false;
             }
         //}
+        //mensaje para probar
+        System.out.println(valido);
     }
     
     public Estudiante verificarEstudiante(String matricula){
@@ -243,26 +258,77 @@ public class ConfJuegoController implements Initializable{
         return null;
     }
     
+    //seleccion manual por medio de matricula
     @FXML
     public void usoParticipante(){
         if(verificarEstudiante(participanteField.getText()) != null){
             participante = verificarEstudiante(participanteField.getText());
+            cond1=true;
+            System.out.println(participante.getNombre());
         } else {
             System.out.println("aqui sale un mensaje de que no se encontro");
+            cond1=false;
         }
     }
     
+    //seleccion aleatoria
+    @FXML
+    public void participanteAleatorio(){
+        if(participanteCheck.isSelected()){
+            participanteField.clear();
+            participanteField.setDisable(true);
+            cond1=true;
+            int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
+            participante = paraleloSelect.getEstudiantes().get(index);
+            System.out.println(participante.getNombre());
+        } else{
+            participanteField.setDisable(false);
+            cond1=false;
+        }
+    }
+    
+    //seleccion aleatoria
+    @FXML
+    public void apoyoAleatorio(){
+        if(apoyoCheck.isSelected()){
+            apoyoField.clear();
+            apoyoField.setDisable(true);
+            cond2=true;
+            int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
+            apoyo = paraleloSelect.getEstudiantes().get(index);
+            System.out.println(apoyo.getNombre());
+        } else{
+            apoyoField.setDisable(false);
+            cond2=false;
+        }
+    }
+    
+    //seleccion por matricula
     @FXML
     public void usoApoyo(){
         if(verificarEstudiante(apoyoField.getText()) != null){
             apoyo = verificarEstudiante(apoyoField.getText());
+            cond2=true;
+            System.out.println(apoyo.getNombre());
         } else {
             System.out.println("aqui sale un mensaje de que no se encontro");
+            cond2=false;
         }
     }
     
+    
+    
+    //boton de regreso
     @FXML
     private void goBack() throws IOException {
         App.setRoot("menu");
     }
+    //boton de inicio de juego
+    @FXML
+    private void goToJuegoView() throws IOException {
+        if(valido == cond1 == cond2 == true){
+            App.setRoot("juegoView");   
+        }
+    }
+    
 }

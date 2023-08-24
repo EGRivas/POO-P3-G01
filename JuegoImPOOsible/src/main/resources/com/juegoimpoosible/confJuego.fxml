@@ -19,8 +19,9 @@
       <Label layoutX="21.0" layoutY="215.0" text="Ingrese la matrícula del participante:" />
       <Label layoutX="21.0" layoutY="286.0" text="Ingrese la matrícula del compañero de apoyo:" />
       <TextField fx:id="apoyoField" layoutX="315.0" layoutY="282.0" onAction="#usoApoyo" />
-      <CheckBox fx:id="participanteCheck" layoutX="503.0" layoutY="215.0" mnemonicParsing="false" text="Aleatorio" />
+      <CheckBox fx:id="participanteCheck" layoutX="503.0" layoutY="215.0" mnemonicParsing="false" onAction="#participanteAleatorio" text="Aleatorio" />
       <Button fx:id="regreso" layoutX="27.0" layoutY="354.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
-      <CheckBox fx:id="apoyoCheck" layoutX="504.0" layoutY="286.0" mnemonicParsing="false" text="Aleatorio" />
+      <CheckBox fx:id="apoyoCheck" layoutX="504.0" layoutY="286.0" mnemonicParsing="false" onAction="#apoyoAleatorio" text="Aleatorio" />
+      <Button layoutX="499.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToJuegoView" text="Crear Juego" />
    </children>
 </AnchorPane>
