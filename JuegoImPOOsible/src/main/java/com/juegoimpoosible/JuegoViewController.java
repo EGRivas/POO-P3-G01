@@ -72,7 +72,7 @@ public class JuegoViewController implements Initializable {
     private static Preguntas currentPreg;
     private static ArrayList<String> listAnswers; 
     private String respCorrecta;
-    private static ArrayList<TipoComodin> comodines = new ArrayList<>();
+    private ArrayList<TipoComodin> comodines;
     
     private ArrayList<String> presentacionPreg;
     private ArrayList<Button> listaBotones;
@@ -91,6 +91,7 @@ public class JuegoViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //esto solo ocurre una vez 
+        comodines = new ArrayList<>();
         cont = 0;
         iniciarRecursos();
         juego = ConfJuegoController.juegoIn;
@@ -232,10 +233,12 @@ public class JuegoViewController implements Initializable {
             
         } else{
             //has ganadoooo
+            alcanzado++;
             juegoTerminado();
         }
     }
     public void juegoTerminado(){
+        System.out.println("");
         //conteo de los niveles alcanzados
         if(alcanzado > 0 && alcanzado<juego.getNivelMax()){
             //premio de consolacion
@@ -244,7 +247,7 @@ public class JuegoViewController implements Initializable {
             }catch(IOException e){
                 e.printStackTrace();
             }
-        } else if(alcanzado == juego.getNivelMax()){
+        } else if(alcanzado >= juego.getNivelMax()){
             //has ganado
             try{
                 goToPremioCompleto();
