@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.juegoimpoosible.funcionalidad.Archivar.readTerms;
@@ -17,6 +19,8 @@ public class ConfTermJuegoController {
 
     @FXML
     private ListView<Termino> termListView;
+    private Stage stage; // Referencia a la ventana actual
+
 
     public void initialize() {
         // Esta es una posible ubicación para cargar los términos al inicio
@@ -29,6 +33,7 @@ public class ConfTermJuegoController {
         termListView.setItems(observableTerminos);
 
         termListView.setOnMouseClicked(this::onTermSelected);
+
 
     }
     private void onTermSelected(MouseEvent event) {
@@ -46,8 +51,17 @@ public class ConfTermJuegoController {
         alert.setTitle("Selección de Término");
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.setOnHidden(event -> goBackToPreviousWindow());
         alert.showAndWait();
     }
+    private void goBackToPreviousWindow() {
+        try {
+            App.setRoot("adTerm");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
