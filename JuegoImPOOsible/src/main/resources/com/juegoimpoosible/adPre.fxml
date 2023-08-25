@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -12,7 +13,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.AdPreController">
    <children>
-      <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Materias:" />
+       <ComboBox fx:id="materiaComboBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Materias:" onMouseClicked="#handleMateriaSelection" />
       <ScrollPane layoutX="14.0" layoutY="50.0" prefHeight="341.0" prefWidth="576.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="2100.0">
@@ -22,43 +23,49 @@
                         <VBox prefHeight="1000.0" prefWidth="300.0">
                            <children>
                               <Label text="Enunciado:" textAlignment="CENTER" />
-                              <ListView prefHeight="900.0" prefWidth="300.0" />
+                              <ListView fx:id="enun" prefHeight="900.0" prefWidth="300.0" />
+                              <TextField fx:id="enunN" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="60.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="34.0" text="Nivel:" />
-                              <ListView prefHeight="900.0" prefWidth="60.0" />
+                              <ListView fx:id="nivel" prefHeight="900.0" prefWidth="60.0" />
+                              <TextField fx:id="nivelN" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="300.0">
                            <children>
                               <Label text="Respuesta Correcta:" />
-                              <ListView prefHeight="900.0" prefWidth="300.0" />
+                              <ListView fx:id="respCorrec" prefHeight="900.0" prefWidth="300.0" />
+                              <TextField fx:id="respCorrecN" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="300.0">
                            <children>
-                              <Label text="Respuesta Correcta 1:" />
-                              <ListView prefHeight="900.0" prefWidth="300.0" />
+                              <Label text="Respuesta 1:" />
+                              <ListView fx:id="resp1" prefHeight="900.0" prefWidth="300.0" />
+                              <TextField fx:id="resp1N" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="300.0">
                            <children>
-                              <Label text="Respuesta Correcta 2:" />
-                              <ListView prefHeight="1000.0" prefWidth="300.0" />
+                              <Label text="Respuesta 2:" />
+                              <ListView fx:id="resp2" prefHeight="900.0" prefWidth="300.0" />
+                              <TextField fx:id="resp2N" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="300.0">
                            <children>
-                              <Label text="Respuesta Correcta 3:" />
-                              <ListView prefHeight="1000.0" prefWidth="300.0" />
+                              <Label text="Respuesta 3:" />
+                              <ListView fx:id="resp3" prefHeight="900.0" prefWidth="300.0" />
+                              <TextField fx:id="resp3N" />
                            </children>
                         </VBox>
                         <VBox prefHeight="1000.0" prefWidth="60.0">
                            <children>
                               <Label text="Opciones:" />
-                              <ListView prefHeight="1000.0" prefWidth="60.0" />
+                              <ListView fx:id="opciones" prefHeight="1000.0" prefWidth="60.0" />
                            </children>
                         </VBox>
                      </children>
@@ -67,6 +74,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-       <Button layoutX="523.0" layoutY="14.0" mnemonicParsing="false" text="Regresar" onMouseClicked="#goBackToConfig" />
+       <Button layoutX="523.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goBackToConfig" text="Regresar" />
+       <Button layoutX="450.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#guardarPregunta" text="Guardar" />
    </children>
 </Pane>
