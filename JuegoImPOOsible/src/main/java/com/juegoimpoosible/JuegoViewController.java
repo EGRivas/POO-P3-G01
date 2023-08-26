@@ -18,11 +18,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -36,10 +32,10 @@ import javafx.scene.layout.VBox;
  *
  * @author administrador
  */
-public class JuegoViewController implements Initializable {
+public class JuegoViewController implements Initializable, Runnable {
 
     @FXML
-    private Label lblTiempo;
+    private Label lblTiempo;;
     @FXML
     private Label lblPregunta;
     @FXML
@@ -60,20 +56,23 @@ public class JuegoViewController implements Initializable {
     private VBox contAvancePreguntas;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private SplitPane splitted;
     private ImageView img50;
     private ImageView imgComp;
     private ImageView imgCurso;
-    
-    
+    private static int i;
+
+
     static Juego juego;
     private static Estudiante estPart;
     private static Estudiante estApoyo;
     private static ArrayList<Preguntas> contPreguntas;
     private static Preguntas currentPreg;
-    private static ArrayList<String> listAnswers; 
+    private static ArrayList<String> listAnswers;
     private String respCorrecta;
-    private static ArrayList<TipoComodin> comodines = new ArrayList<>();
-    
+    private ArrayList<TipoComodin> comodines;
+
     private ArrayList<String> presentacionPreg;
     private ArrayList<Button> listaBotones;
     //seguimiento de preguntas
@@ -82,15 +81,21 @@ public class JuegoViewController implements Initializable {
     private int alcanzado = 0;
     @FXML
     private ListView<String> questionView;
-    
-    
+
+
     /**
      * Initializes the controller class.
      */
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //esto solo ocurre una vez 
+
+        //esto solo ocurre una vez
+
+        //esto solo ocurre una vez
+        comodines = new ArrayList<>();
+        lblTiempo.setText("60s");
         cont = 0;
         iniciarRecursos();
         juego = ConfJuegoController.juegoIn;
@@ -111,33 +116,56 @@ public class JuegoViewController implements Initializable {
                 }
             }
         }
-        
+
         Collections.shuffle(contPreguntas);
         presentacionPreg = new ArrayList<>();
         for(int x=1;x<=contPreguntas.size();x++){
             presentacionPreg.add("Pregunta "+x);
         }
         questionView.getItems().addAll(presentacionPreg);
-        
+
         //proceso a repetir
         currentPreg = contPreguntas.get(cont);
         lblPregunta.setText(currentPreg.getEnunciado());
-        
+
         listAnswers = currentPreg.listaRespuestas();
         Collections.shuffle(listAnswers);
         botonA.setText("A: "+listAnswers.get(0));
         botonB.setText("B: "+listAnswers.get(1));
         botonC.setText("C: "+listAnswers.get(2));
         botonD.setText("D: "+listAnswers.get(3));
-        
+        timer();
         respCorrecta = currentPreg.getRespuestaCorrecta();
-        
+
         img50.setOnMouseClicked(e -> comodin5050());
         imgComp.setOnMouseClicked(e -> comodinApoyo());
         imgCurso.setOnMouseClicked(e -> comodinClase());
-        
+
+
+
     }
-    
+
+    @Override
+    public void run(){
+        for(i = 60; i >= 0; i--){
+
+            if(lblTiempo != null){
+                Platform.runLater(() -> lblTiempo.setText(i + "s"));
+                System.out.println(lblTiempo.getText());
+            }
+            try{
+                Thread.sleep(1000);// Esperar un segundo
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            if (i == 0) {
+                // Aquí puedes llamar a una función para manejar el fin del juego debido a que el tiempo se ha agotado.
+                Platform.runLater(() -> juegoTerminado());
+                break;
+            }
+        }
+    }
+
     public void iniciarRecursos(){
         contComodines.getChildren().clear();
         try {
@@ -154,7 +182,7 @@ public class JuegoViewController implements Initializable {
                 System.out.println(e.getMessage());
             }
         }
-        
+
         img50.getStyleClass().add("comodin");
         imgComp.getStyleClass().add("comodin");
         imgCurso.getStyleClass().add("comodin");
@@ -167,8 +195,12 @@ public class JuegoViewController implements Initializable {
         botonB.getStyleClass().add("button-styled");
         botonC.getStyleClass().add("button-styled");
         botonD.getStyleClass().add("button-styled");
+        lblPregunta.getStyleClass().add("labels");
+        borderPane.getStyleClass().add("fondo");
+        splitted.getStyleClass().add("fondo");
+        questionView.getStyleClass().add("chart");
     }
-    
+
     @FXML
     public void accionBotonA(){
         if(botonA.getText().equals("A: "+respCorrecta)){
@@ -205,8 +237,8 @@ public class JuegoViewController implements Initializable {
             juegoTerminado();
         }
     }
-    
-    
+
+
     public void seguimiento(){
         botonA.setDisable(false);
         botonB.setDisable(false);
@@ -214,28 +246,32 @@ public class JuegoViewController implements Initializable {
         botonD.setDisable(false);
         cont++;
         if(cont<contPreguntas.size()){
+            i = 60;
             currentPreg = contPreguntas.get(cont);
             lblPregunta.setText(currentPreg.getEnunciado());
-            
+
             listAnswers = currentPreg.listaRespuestas();
             Collections.shuffle(listAnswers);
             botonA.setText("A: "+listAnswers.get(0));
             botonB.setText("B: "+listAnswers.get(1));
             botonC.setText("C: "+listAnswers.get(2));
             botonD.setText("D: "+listAnswers.get(3));
-            
+
             respCorrecta = currentPreg.getRespuestaCorrecta();
             if(cont%juego.getNumPreNivel() == 0){
                 alcanzado++;
                 juego.setNivelAlcanzado(alcanzado);
+
             }
-            
+
         } else{
             //has ganadoooo
+            alcanzado++;
             juegoTerminado();
         }
     }
     public void juegoTerminado(){
+        //System.out.println("");
         //conteo de los niveles alcanzados
         if(alcanzado > 0 && alcanzado<juego.getNivelMax()){
             //premio de consolacion
@@ -244,7 +280,7 @@ public class JuegoViewController implements Initializable {
             }catch(IOException e){
                 e.printStackTrace();
             }
-        } else if(alcanzado == juego.getNivelMax()){
+        } else if(alcanzado >= juego.getNivelMax()){
             //has ganado
             try{
                 goToPremioCompleto();
@@ -267,17 +303,17 @@ public class JuegoViewController implements Initializable {
             }
         }
     }
-    
+
     public void comodin5050(){
         if(comodines.contains(TipoComodin.COMODIN5050) == false){
             //boton a -> 0
             //boton b -> 1
             //boton c -> 2
             //boton d -> 3
-            
+
             int index = listAnswers.indexOf(currentPreg.getRespuestaCorrecta());
             System.out.println(index);
-            
+
             int borrar1;
             int borrar2;
             do{
@@ -315,19 +351,16 @@ public class JuegoViewController implements Initializable {
     private void goToPremioNivel() throws IOException {
         App.setRoot("premioNivel");
     }
-    
+
     //thread de los segundos
-    /*public void timer(){
-        Thread th = new Thread(()->{
-            for(int i = 0;i<60;i++){
-                Platform.runLater(()->lblTiempo.setText(i+"s"));
-                try{
-                    Thread.sleep(2000);
-                } catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        th.start();
-    }*/
+
+    public void timer(){
+
+
+
+        Thread thread = new Thread(this);
+
+        thread.start();
+
+    }
 }
