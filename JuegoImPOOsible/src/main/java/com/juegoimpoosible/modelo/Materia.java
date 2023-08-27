@@ -67,16 +67,21 @@ public class Materia implements Serializable{
     }
     
 //Metodo equals
-    /*public boolean equals(Object o){
-        if (o == this) return true;
-        if (o != null && getClass() == o.getClass()){
-            Materia mat = (Materia) o;
-            return (this.codigo.equals(mat.codigo)) || (this.codigo.equals(mat.codigo) && this.nombre.equals(mat.nombre));
-        } else {
-            return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Materia materia = (Materia) o;
+
+        if (codigo.equals(materia.codigo) && nombre.equals(materia.nombre)) {
+            return true;
         }
-    }*/
-//Metodo toString
+
+        return false;
+    }
+
+    //Metodo toString
     public String toString(){
         //return nombre + ", paralelos: " + paralelos;
         return nombre;

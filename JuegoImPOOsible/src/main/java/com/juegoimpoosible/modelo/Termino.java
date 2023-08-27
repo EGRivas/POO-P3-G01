@@ -45,6 +45,7 @@ public class Termino implements Serializable{
         materias.add(m);
     }
     //metodo equals
+    @Override
     public boolean equals(Object o){
         if (o == this) return true;
         if (o != null && getClass() == o.getClass()){
