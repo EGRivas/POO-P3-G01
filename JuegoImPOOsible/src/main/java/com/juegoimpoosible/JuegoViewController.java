@@ -62,6 +62,7 @@ public class JuegoViewController implements Initializable, Runnable {
     private ImageView imgComp;
     private ImageView imgCurso;
     private static int i;
+    private static boolean noVolverEjecutar = false;
 
 
     static Juego juego;
@@ -159,8 +160,10 @@ public class JuegoViewController implements Initializable, Runnable {
                 e.printStackTrace();
             }
             if (i == 0) {
-                // Aquí puedes llamar a una función para manejar el fin del juego debido a que el tiempo se ha agotado.
-                Platform.runLater(() -> juegoTerminado());
+                // Aquí se llama la función juego terminado debido a que el tiempo se ha agotado.
+                //noVolverEjecutar es verdadero cuando se termina el juego por otros medios y se quiere
+                //terminar con el hilo del temporizador
+                if(noVolverEjecutar == false) Platform.runLater(() -> juegoTerminado());
                 break;
             }
         }
@@ -271,8 +274,8 @@ public class JuegoViewController implements Initializable, Runnable {
         }
     }
     public void juegoTerminado(){
-        //System.out.println("");
         //conteo de los niveles alcanzados
+        
         if(alcanzado > 0 && alcanzado<juego.getNivelMax()){
             //premio de consolacion
             try{
@@ -288,19 +291,26 @@ public class JuegoViewController implements Initializable, Runnable {
                 e.printStackTrace();
             }
         } else {
-            //has perdido xd
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            //has perdido
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("¡Has perdido!");
             alert.setHeaderText("Recuerda que puedes volver a participar :)");
-            alert.setContentText("Da click en el botón para regresar al menu");
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK){
-                try{
+            alert.setContentText("Da click en el botón para cerrar la ventana");
+            noVolverEjecutar = true;
+            i=0;
+            
+            
+            ButtonType closeButton = new ButtonType("Aceptar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(closeButton);
+
+            alert.setOnCloseRequest(event -> {
+                try {
                     goBack();
-                }catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            });
+            alert.showAndWait();
         }
     }
 
@@ -310,17 +320,20 @@ public class JuegoViewController implements Initializable, Runnable {
             //boton b -> 1
             //boton c -> 2
             //boton d -> 3
-
+            
+            //se obtiene el indice de la respuesta correcta
             int index = listAnswers.indexOf(currentPreg.getRespuestaCorrecta());
-            System.out.println(index);
 
             int borrar1;
             int borrar2;
+            //se generan indices de las respuestas a borrar hasta que sean distintas
+            //entre si y distintas al indice de la respuesta correcta
             do{
                 borrar1 = (int)(Math.random()*4);
                 borrar2 = (int)(Math.random()*4);
             }while(borrar1 == index || borrar2 == index || borrar1 == borrar2);
-            System.out.println(borrar1+" "+borrar2);
+            
+            //se verifica que boton es el que se debe desactivar
             if(borrar1==0 || borrar2==0){
                 botonA.setDisable(true);
             }
@@ -355,12 +368,7 @@ public class JuegoViewController implements Initializable, Runnable {
     //thread de los segundos
 
     public void timer(){
-
-
-
         Thread thread = new Thread(this);
-
         thread.start();
-
     }
 }

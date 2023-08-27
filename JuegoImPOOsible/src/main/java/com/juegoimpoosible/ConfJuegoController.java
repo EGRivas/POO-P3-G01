@@ -53,6 +53,7 @@ public class ConfJuegoController implements Initializable{
     private boolean cond2;
     
     static Juego juegoIn;
+    static Termino termJuego;
     static ArrayList<Materia> listaMaterias = new ArrayList<>(); 
     static ArrayList<Preguntas> preguntas;
     static Materia materiaSelect;
@@ -69,6 +70,7 @@ public class ConfJuegoController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        termJuego = Juego.getTermino();
         cond1 = false;
         cond2 = false;
         //reinicio de los valores
@@ -76,7 +78,7 @@ public class ConfJuegoController implements Initializable{
         listaMaterias.clear();
         recursos();
         //Creacion de estudiantes para la prueba
-        ArrayList<Estudiante> lEstudiantesP03 = new ArrayList<>();
+        /*ArrayList<Estudiante> lEstudiantesP03 = new ArrayList<>();
         String ruta = "archivos/POO_P3_2023_1T.csv";
         try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
             br.readLine();
@@ -168,7 +170,7 @@ public class ConfJuegoController implements Initializable{
 
         
         //Creacion Materia POO con el paralelo 3 y las preguntas ya hechas
-        Materia POO = new Materia("CCPG1052","POO",3);
+        Materia POO = new Materia("CCPG1052","POOs",3);
         POO.aggParalelo(paralelo3);
         POO.agregarPregunta(p1);
         POO.agregarPregunta(p2);
@@ -188,6 +190,10 @@ public class ConfJuegoController implements Initializable{
         //Juego creado
         juegoIn = new Juego(POO);
         listaMaterias.add(POO);
+        */
+        //funcionalidad real
+        listaMaterias.addAll(termJuego.getMaterias());
+        
         
         //configuracion contenedores
         cmbMateria.getItems().addAll(listaMaterias);
@@ -203,6 +209,7 @@ public class ConfJuegoController implements Initializable{
     public void cargaParalelos(){
         cmbParalelo.getItems().clear();
         materiaSelect = cmbMateria.getValue();
+        juegoIn = new Juego(materiaSelect);
         cmbParalelo.getItems().addAll(materiaSelect.getParalelos());
     }
     
@@ -219,19 +226,13 @@ public class ConfJuegoController implements Initializable{
         System.out.println(paraleloSelect.getEstudiantes().size());
     }
     
-    //metodo ya probado y funcional
+    
     @FXML
     public void validarPreguntas(){
         preguntas = materiaSelect.getPreguntas();
         valido = false;
-        //while(valido == false){
             int c = 0; //contador externo
             
-            /*
-            System.out.println("Ingrese el número de preguntas por nivel:");
-            int num = sc.nextInt(); //numero de preguntas por nivel
-            sc.nextLine();
-            */
             
             int num = Integer.parseInt((numPregField.getText()));
             //se hace una lista de enteros con el numero de niveles que hay en cada pregunta
@@ -260,9 +261,6 @@ public class ConfJuegoController implements Initializable{
                 System.out.println("mensaje de alerta, valor incorrecto");
                 valido = false;
             }
-        //}
-        //mensaje para probar
-        System.out.println(valido);
     }
     
     public Estudiante verificarEstudiante(String matricula){
@@ -280,6 +278,7 @@ public class ConfJuegoController implements Initializable{
     public void usoParticipante(){
         if(verificarEstudiante(participanteField.getText()) != null){
             participante = verificarEstudiante(participanteField.getText());
+            juegoIn.setParticipante(participante);
             cond1=true;
             System.out.println(participante.getNombre());
         } else {
@@ -297,6 +296,13 @@ public class ConfJuegoController implements Initializable{
             cond1=true;
             int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
             participante = paraleloSelect.getEstudiantes().get(index);
+            if(apoyo.getMatricula() != null){
+                while(apoyo.getMatricula().equals(participante.getMatricula())){
+                    int ind = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
+                    participante = paraleloSelect.getEstudiantes().get(ind);
+                }
+            }
+            juegoIn.setParticipante(participante);
             System.out.println(participante.getNombre());
         } else{
             participanteField.setDisable(false);
@@ -313,6 +319,13 @@ public class ConfJuegoController implements Initializable{
             cond2=true;
             int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
             apoyo = paraleloSelect.getEstudiantes().get(index);
+            if(participante.getMatricula() != null){
+                while(participante.getMatricula().equals(apoyo.getMatricula())){
+                    int ind = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
+                    apoyo = paraleloSelect.getEstudiantes().get(ind);
+                }
+            }
+            juegoIn.setComApoyo(apoyo);
             System.out.println(apoyo.getNombre());
         } else{
             apoyoField.setDisable(false);
@@ -325,6 +338,7 @@ public class ConfJuegoController implements Initializable{
     public void usoApoyo(){
         if(verificarEstudiante(apoyoField.getText()) != null){
             apoyo = verificarEstudiante(apoyoField.getText());
+            juegoIn.setComApoyo(apoyo);
             cond2=true;
             System.out.println(apoyo.getNombre());
         } else {

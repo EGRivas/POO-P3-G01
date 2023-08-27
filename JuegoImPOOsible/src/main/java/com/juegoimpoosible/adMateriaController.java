@@ -55,14 +55,13 @@ public class adMateriaController  implements Initializable{
 
     @FXML
     private void mainMenu(){
-
+        menuseichon.getItems().clear();
         MenuItem item2 = new MenuItem("Administrar Paralelos");
-        MenuItem item3 = new MenuItem("Administrar Estudiantes");
-        menuseichon.getItems().addAll(item2, item3);
+        //MenuItem item3 = new MenuItem("Administrar Estudiantes");
+        menuseichon.getItems().add(item2);
         item2.setOnAction(actionEvent -> menuAdParalelos());
-        item3.setOnAction(actionEvent -> menuAdEstudiantes());
+        //item3.setOnAction(actionEvent -> menuAdEstudiantes());
         if(menuseichon.getItems().size() >= 4){
-            menuseichon.getItems().remove(2);
             menuseichon.getItems().remove(2);
         }
     }

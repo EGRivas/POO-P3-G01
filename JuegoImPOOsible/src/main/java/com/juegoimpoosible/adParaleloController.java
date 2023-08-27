@@ -5,6 +5,8 @@ import com.juegoimpoosible.modelo.Estudiante;
 import com.juegoimpoosible.modelo.Materia;
 import com.juegoimpoosible.modelo.Paralelo;
 import com.juegoimpoosible.modelo.Termino;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -29,6 +31,8 @@ public class adParaleloController implements Initializable {
     private static Materia prevSubject;
     private static String prevTerm;
     private static String prevYear;
+    @FXML
+    private TextField nombreArchivo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -63,7 +67,7 @@ public class adParaleloController implements Initializable {
                     availableParalelo.getItems().addAll(m.getParalelos());
 
 
-                    break; // Exit the loop once a match is found
+                    break;
                 }
             }
         }
@@ -77,7 +81,33 @@ public class adParaleloController implements Initializable {
     private void saveParalelo(MouseEvent event){
         ArrayList<Termino> terms = Archivar.readTerms();
         ArrayList<Materia> subjects = Archivar.readSubjects();
+        ArrayList<Estudiante> listaEst = new ArrayList<>();
         Paralelo paralelo = new Paralelo(numParalelo.getText());
+        String ruta = "archivos/"+nombreArchivo.getText()+".csv";
+        try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
+            br.readLine();
+            String line;
+            while((line = br.readLine()) != null){
+                String[] arr = line.split(";");
+                Estudiante e1 = new Estudiante(arr[1],arr[0],arr[2]);
+                listaEst.add(e1);
+            }
+        } catch(IOException e){
+            //e.printStackTrace();
+            System.err.println("[-]Something Unexpected happened, but it's ok");
+            ruta = "JuegoImPOOsible/archivos/"+nombreArchivo.getText()+".csv";
+            try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
+                br.readLine();
+                String line;
+                while((line = br.readLine()) != null){
+                    String[] arr = line.split(";");
+                    Estudiante e1 = new Estudiante(arr[1],arr[0],arr[2]);
+                    listaEst.add(e1);
+                }
+            } catch(IOException ex){
+                ex.printStackTrace();}
+        }
+        paralelo.addEstudiantes(listaEst);
         subchart.getItems().remove(prevSubject);
 
         for (Termino t : terms) {
@@ -90,7 +120,7 @@ public class adParaleloController implements Initializable {
                             subchart.getItems().add(o);
                         }
                     }
-                    break; // Exit the loop once a match is found
+                    break;
                 }
             }
         }
@@ -171,7 +201,7 @@ public class adParaleloController implements Initializable {
                             }
                         }
                     }
-                    break; // Exit the loop once a match is found
+                    break;
                 }
             }
         }
@@ -193,12 +223,12 @@ public class adParaleloController implements Initializable {
 
     @FXML
     private void mainMenu(){
-
+        menuseichon.getItems().clear();
         MenuItem item2 = new MenuItem("Administrar Materias");
-        MenuItem item3 = new MenuItem("Administrar Estudiantes");
-        menuseichon.getItems().addAll(item2, item3);
+        //MenuItem item3 = new MenuItem("Administrar Estudiantes");
+        menuseichon.getItems().addAll(item2);
         item2.setOnAction(actionEvent -> menuAdMaterias());
-        item3.setOnAction(actionEvent -> menuAdEstudiantes());
+        //item3.setOnAction(actionEvent -> menuAdEstudiantes());
         if(menuseichon.getItems().size() >= 4){
             menuseichon.getItems().remove(2);
             menuseichon.getItems().remove(2);
@@ -212,11 +242,11 @@ public class adParaleloController implements Initializable {
             System.out.println("[-]No se pudo encontrar");
         }
     }
-    private void menuAdEstudiantes(){
+    /*private void menuAdEstudiantes(){
         try{
             App.setRoot("adEstudiantes");
         }catch(IOException e){
             System.out.println("[-]No se pudo encontrar");
         }
-    }
+    }*/
 }
