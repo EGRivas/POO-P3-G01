@@ -85,30 +85,21 @@ public class adMateriaController  implements Initializable{
     }
 
     @FXML
-    private void chart(MouseEvent event){
-        ArrayList<Termino> terms = Archivar.readTerms();
-        ArrayList<Materia> subjects = Archivar.readSubjects();
-
-        subchart.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                prevSubject = (Materia) newValue;
-                subName.setText((((Materia)newValue).getNombre()));
-                System.out.println(((Materia)newValue).getNombre());
-                subCode.setText(((Materia)newValue).getCodigo());
-                for(Termino t: terms){
-                    for(Materia m: t.getMaterias()){
-
-                        if((((Materia)newValue).getNombre()).equals(m.getNombre()) && (((Materia)newValue).getCodigo()).equals(m.getCodigo())){
-
-                            year.setText((prevYear = t.getAnio()));
-                            numTerm.setText((prevTerm = t.getPeriodo()));
-                            LevelQuantity.setValue(("" + m.getCantidadNiveles()));
-                        }
-                    }
-                }
-
+    private void chart(MouseEvent event) {
+        Materia selectedMateria = subchart.getSelectionModel().getSelectedItem();
+        if (selectedMateria != null) {
+            if (editSub.isSelected()) {
+                subName.setText(selectedMateria.getNombre());
+                subCode.setText(selectedMateria.getCodigo());
+                // Set other fields as needed
+                LevelQuantity.setValue(String.valueOf(selectedMateria.getCantidadNiveles()));
+                prevSubject = selectedMateria;  // Actualizar la referencia prevSubject
+                prevYear = year.getText();  // Actualizar la referencia prevYear
+                prevTerm = numTerm.getText();  // Actualizar la referencia prevTerm
+            } else {
+                clearFields(); // Clear fields if not editing
             }
-        });
+        }
     }
     @FXML
     private TextField year;
@@ -125,7 +116,7 @@ public class adMateriaController  implements Initializable{
     @FXML
     private ChoiceBox LevelQuantity;
     @FXML
-    private void saveChanges(MouseEvent event) throws IOException{
+    private void saveChanges(MouseEvent event) throws IOException {
         ArrayList<Termino> terms = Archivar.readTerms();
         ArrayList<Materia> subjects = Archivar.readSubjects();
 
@@ -133,63 +124,107 @@ public class adMateriaController  implements Initializable{
         String anio = year.getText();
         String code = subCode.getText();
         String termi = numTerm.getText();
-        int levels = Integer.parseInt(((String) LevelQuantity.getValue()));
+        int levels = Integer.parseInt((String) LevelQuantity.getValue());
 
+        if (addSub.isSelected()) {
+            boolean isValid = true;
 
-
-
-        if(editSub.isSelected()){
-            System.out.println("DIOSSSSSSSSSS");
-            for(Termino t: terms){
-                if((t.getAnio()).equals(prevYear) && (t.getPeriodo()).equals(prevTerm)){
-                    for(Materia m: subjects){
-                        if((m.getNombre()).equals(prevSubject.getNombre()) && (m.getCodigo()).equals(prevSubject.getCodigo())){
-                            (t.getMaterias()).remove(m);
-                            subjects.remove(m);
-                            subchart.getItems().remove(prevSubject);
-
+            if (nombre.isEmpty() || code.isEmpty() || anio.isEmpty() || termi.isEmpty()) {
+                showAlert(AlertType.WARNING, "Campos Vacíos", "Por favor, llene todos los campos.");
+                return;
+            } else {
+                for (Termino t : terms) {
+                    if (t.getAnio().equals(anio) && t.getPeriodo().equals(termi)) {
+                        for (Materia m : t.getMaterias()) {
+                            if (m.getCodigo().equals(code) || m.getNombre().equals(nombre)) {
+                                isValid = false;
+                                showAlert(AlertType.WARNING, "Materia Existente", "Una materia con el mismo código o nombre ya existe en el mismo término.");
+                                break;
+                            }
                         }
                     }
                 }
-            }
-
-            for(Termino t: terms){
-                if((t.getAnio()).equals(anio) && (t.getPeriodo()).equals(termi)){
-                    //Materia paso = new Materia(code, nombre, levels);
-                    prevSubject.editarMateria(nombre, code);
-                    prevSubject.editarMateria(nombre, levels);
-                    (t.getMaterias()).add(prevSubject);
-                    subjects.add(prevSubject);
+                if (isValid) {
+                    for (Termino t : terms) {
+                        if (t.getAnio().equals(anio) && t.getPeriodo().equals(termi)) {
+                            Materia m = new Materia(code, nombre, levels);
+                            t.getMaterias().add(m);
+                            subjects.add(m);
+                            subchart.getItems().add(m);
+                            Archivar.writeTerms(terms);
+                            Archivar.writeMaterias(subjects);
+                            showAlert(AlertType.INFORMATION, "Materia Agregada", "La materia se ha agregado exitosamente.");
+                            clearFields();
+                            return;
+                        }
+                    }
+                    showAlert(AlertType.WARNING, "Término no Encontrado", "No se encontró el término ingresado.");
                 }
             }
+        } else if (editSub.isSelected()) {
+            if (prevSubject != null && prevYear != null && prevTerm != null) {
+                boolean isValid = true;
 
-            Archivar.writeTerms(terms);
-            Archivar.writeMaterias(subjects);
-            subchart.getItems().add(prevSubject);
+                if (nombre.isEmpty() || code.isEmpty() || anio.isEmpty() || termi.isEmpty()) {
+                    isValid = false;
+                    showAlert(AlertType.WARNING, "Campos Vacíos", "Por favor, llene todos los campos.");
 
+                } else {
 
-        }else if(addSub.isSelected()){
+                    if (isValid) {
+                        for (Termino t : terms) {
+                            if (t.getAnio().equals(anio) && t.getPeriodo().equals(termi)) {
+                                prevSubject.editarMateria(nombre, code);
+                                prevSubject.setNivel(levels);
 
-            for(Termino t: terms){
-                if((t.getAnio()).equals(anio) && (t.getPeriodo()).equals(termi)){
-                    Materia m = new Materia(code, nombre, levels);
-                    (t.getMaterias()).add(m);
-                    subjects.add(m);
-                    subchart.getItems().add(m);
+                                for (Termino t1 : terms) {
+                                    if (t1.getAnio().equals(prevYear) && t1.getPeriodo().equals(prevTerm)) {
+                                        for (int i = 0; i < t.getMaterias().size(); i++) {
+                                            if (t1.getMaterias().get(i) == prevSubject) {
+                                                t1.getMaterias().set(i, prevSubject);
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+
+                                Archivar.writeTerms(terms);
+                                Archivar.writeMaterias(subjects);
+
+                                showAlert(AlertType.INFORMATION, "Materia Editada", "La materia se ha editado exitosamente.");
+                                clearFields();
+                                return;
+
+                            }
+                        }
+                        showAlert(AlertType.WARNING, "Término no Encontrado", "No se encontró el término ingresado.");
+                    }
                 }
+            } else {
+                showAlert(AlertType.WARNING, "Selección Incompleta", "Por favor, seleccione una materia para editar.");
             }
-            Archivar.writeTerms(terms);
-            Archivar.writeMaterias(subjects);
-
-
-        }else{
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("This is a warning message");
-            alert.setContentText("Please select whether to add or edit");
+        } else {
+            showAlert(AlertType.WARNING, "Selección Incompleta", "Por favor, seleccione si desea agregar o editar.");
         }
-
     }
+
+    private void showAlert(AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void clearFields() {
+        subName.clear();
+        subCode.clear();
+        year.clear();
+        numTerm.clear();
+        LevelQuantity.setValue(null);
+    }
+
     @FXML
     private MenuButton menuseichon;
 

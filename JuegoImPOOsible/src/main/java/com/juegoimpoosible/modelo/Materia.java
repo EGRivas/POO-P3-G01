@@ -81,4 +81,7 @@ public class Materia implements Serializable{
         //return nombre + ", paralelos: " + paralelos;
         return nombre;
     }
+    public void setNivel(int cantidadNiveles){
+        this.cantidadNiveles = cantidadNiveles;
+    }
 }
