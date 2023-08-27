@@ -3,6 +3,7 @@ package com.juegoimpoosible;
 import com.juegoimpoosible.funcionalidad.Archivar;
 import com.juegoimpoosible.modelo.Materia;
 import com.juegoimpoosible.modelo.Preguntas;
+import com.juegoimpoosible.modelo.Termino;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class AdPreController implements Initializable {
@@ -47,11 +49,17 @@ public class AdPreController implements Initializable {
     private TextField resp3N;
 
     private Materia selectedMateria;
+    private static ArrayList<Termino> listTerm;
+    private ArrayList<Materia> materias;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Aquí cargamos las materias en el ComboBox
-        ArrayList<Materia> materias = Archivar.readSubjects();
+        listTerm = Archivar.readTerms();
+        materias = new ArrayList<>();
+        for(Termino t: listTerm){
+            materias.addAll(t.getMaterias());
+        }
         materiaComboBox.getItems().addAll(materias);
         opciones.setOnMouseClicked(this::handleOptionClick);
 
@@ -100,7 +108,16 @@ public class AdPreController implements Initializable {
                         break;
                     }
                 }
-                Archivar.writeMaterias(materias);
+                for (Termino termino : listTerm) {
+                    if (termino.getMaterias().contains(selectedMateria)) {
+                        // Actualizar la lista de materias en el término
+                        termino.setMaterias(materias);
+                        break;
+                    }
+                }
+
+// Escribir los términos actualizados al archivo serial
+                Archivar.writeTerms(listTerm);
 
                 // Mostrar una alerta de éxito
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -131,7 +148,11 @@ public class AdPreController implements Initializable {
             resp3.getItems().clear();
             opciones.getItems().clear();
 
-            for (Preguntas pregunta : selectedMateria.getPreguntas()) {
+            // Ordenar las preguntas según el nivel
+            ArrayList<Preguntas> preguntasOrdenadas = new ArrayList<>(selectedMateria.getPreguntas());
+            preguntasOrdenadas.sort(Comparator.comparingInt(Preguntas::getNivel));
+
+            for (Preguntas pregunta : preguntasOrdenadas) {
                 enun.getItems().add(pregunta.getEnunciado());
                 nivel.getItems().add(pregunta.getNivel());
                 respCorrec.getItems().add(pregunta.getRespuestaCorrecta());
@@ -143,6 +164,7 @@ public class AdPreController implements Initializable {
             }
         }
     }
+
     @FXML
     private void handleOptionClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
@@ -163,7 +185,16 @@ public class AdPreController implements Initializable {
                         break;
                     }
                 }
-                Archivar.writeMaterias(materias);
+                for (Termino termino : listTerm) {
+                    if (termino.getMaterias().contains(selectedMateria)) {
+                        // Actualizar la lista de materias en el término
+                        termino.setMaterias(materias);
+                        break;
+                    }
+                }
+
+// Escribir los términos actualizados al archivo serial
+                Archivar.writeTerms(listTerm);
             }
         }
     }
