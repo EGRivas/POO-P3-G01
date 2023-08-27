@@ -5,15 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.addParaleloController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juegoimpoosible.adParaleloController">
    <right>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="subchart" onMouseClicked="#chart" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
@@ -23,23 +22,19 @@
                   <TextField fx:id="numParalelo" layoutX="28.0" layoutY="63.0" promptText="Numero del paralelo" />
                   <Label layoutX="130.0" layoutY="14.0" text="Administrador de Paralelos" />
                   <Label layoutX="28.0" layoutY="31.0" text="Agregar Paralelo:" />
-                  <Button layoutX="323.0" layoutY="91.0" mnemonicParsing="false" text="Guardar" onMouseClicked="#saveParalelo"/>
+                  <Button layoutX="323.0" layoutY="91.0" mnemonicParsing="false" onMouseClicked="#saveParalelo" text="Guardar" />
                   <Label layoutX="30.0" layoutY="115.0" text="Editar Paralelo:" />
-                  <ComboBox layoutX="27.0" layoutY="161.0" prefWidth="150.0" />
+                  <ComboBox fx:id="availableParalelo" layoutX="27.0" layoutY="161.0" prefWidth="150.0" />
                   <Label layoutX="30.0" layoutY="132.0" text="Paralelo:" />
-                  <TextField layoutX="233.0" layoutY="161.0" promptText="Nuevo numero" />
+                  <TextField fx:id="newNumber" layoutX="233.0" layoutY="161.0" promptText="Nuevo numero" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" text="Regresar" />
-                  <MenuButton layoutX="198.0" layoutY="75.0" mnemonicParsing="false" text="Cambio de menu">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
-                  <Button layoutX="285.0" layoutY="2.0" mnemonicParsing="false" text="Guardar cambio" />
+                  <Button layoutX="25.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Regresar" />
+                  <MenuButton fx:id="menuseichon" layoutX="198.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#mainMenu" text="Cambio de menu" />
+                  <Button layoutX="285.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#editParalelo" text="Guardar cambio" />
+                  <Button layoutX="200.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#eliminar" text="Eliminar" />
                </children>
             </Pane>
          </children>

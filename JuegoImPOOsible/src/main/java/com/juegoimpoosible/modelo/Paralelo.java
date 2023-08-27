@@ -49,4 +49,15 @@ public class Paralelo implements Serializable{
         //return numero;
         return "paralelo: "+numero;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Paralelo paralelo = (Paralelo) o;
+
+        return numero != null ? numero.equals(paralelo.numero) : paralelo.numero == null;
+    }
+
 }
