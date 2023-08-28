@@ -22,7 +22,7 @@
          <children>
             <Button fx:id="config" mnemonicParsing="false" onMouseClicked="#goToConfiguracion" text="Configuraciones" GridPane.columnIndex="1" />
             <Button fx:id="newGame" mnemonicParsing="false" onMouseClicked="#goToJuego" text="Nuevo Juego" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="report" mnemonicParsing="false" text="Reporte" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+             <Button fx:id="report" mnemonicParsing="false" text="Reporte" GridPane.columnIndex="1" GridPane.rowIndex="2" onMouseClicked="#goToReport" />
             <Text fx:id="titulo" strokeType="OUTSIDE" strokeWidth="0.0" text="Juego ImPOOsible" GridPane.rowIndex="1" />
          </children>
       </GridPane>

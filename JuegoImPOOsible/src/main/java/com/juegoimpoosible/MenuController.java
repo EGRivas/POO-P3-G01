@@ -60,6 +60,10 @@ public class MenuController implements Initializable {
         App.setRoot("configuracion");
     }
 
+    @FXML
+    private void goToReport(MouseEvent event) throws IOException {
+        App.setRoot("reporte"); // Cambia "reporte" por el nombre del archivo FXML de la ventana de reporte
+    }
 
     @FXML
     private Button report;
