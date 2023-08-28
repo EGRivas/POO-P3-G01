@@ -168,7 +168,7 @@ public class Juego implements Serializable{
         System.out.println("¡Felicitaciones! Has respondido correctamente a todas las preguntas.");
 
         System.out.print("Ingrese el premio que ha ganado el estudiante: ");
-        premio = sc.nextInt();
+        premioGanado = sc.nextLine();
         sc.nextLine();
 
         System.out.println("¡Felicidades! Ha ganado: " + premio);
@@ -285,6 +285,7 @@ public class Juego implements Serializable{
     public int getNumPreNivel(){
         return numPreNivel;
     }
+    public Estudiante getComApoyo(){return comApoyo;}
     public int getNivelMax(){
         return nivelMax;
     }
@@ -367,4 +368,5 @@ public class Juego implements Serializable{
     public void setComodinesUsados(ArrayList<TipoComodin> c){
         comodinesUsados = c;
     }
+    public String getPremioGanado(){return premioGanado;}
 }
