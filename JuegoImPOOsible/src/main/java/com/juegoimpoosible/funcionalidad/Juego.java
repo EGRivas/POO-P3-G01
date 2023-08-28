@@ -291,8 +291,14 @@ public class Juego implements Serializable{
     public String getCodigoMateria(){
         return materia.getCodigo();
     }
+    public Materia getMateria(){
+        return materia;
+    }
     public String getNumParalelo(){
         return paralelo.getNumero();
+    }
+    public Paralelo getParalelo(){
+        return paralelo;
     }
     public static Termino getTermino(){
         return termino;
@@ -311,6 +317,10 @@ public class Juego implements Serializable{
     }
     public int getComodinesUtilizados(){
         return comodinesUtilizados;
+    }
+    //da directamente la lista de comodines usados
+    public ArrayList<TipoComodin> getComodinesUsados(){
+        return comodinesUsados;
     }
     public int getPremio(){
         return premio;

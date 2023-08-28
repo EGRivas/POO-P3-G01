@@ -77,7 +77,7 @@ public class ConfJuegoController implements Initializable{
         cmbMateria.getItems().clear();
         listaMaterias.clear();
         recursos();
-        //Creacion de estudiantes para la prueba
+        //Creacion de estudiantes para la prueba del jueves 24/08/2023
         /*ArrayList<Estudiante> lEstudiantesP03 = new ArrayList<>();
         String ruta = "archivos/POO_P3_2023_1T.csv";
         try(BufferedReader br = new BufferedReader(new FileReader(ruta))){
@@ -296,7 +296,7 @@ public class ConfJuegoController implements Initializable{
             cond1=true;
             int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
             participante = paraleloSelect.getEstudiantes().get(index);
-            if(apoyo.getMatricula() != null){
+            if(apoyo != null){
                 while(apoyo.getMatricula().equals(participante.getMatricula())){
                     int ind = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
                     participante = paraleloSelect.getEstudiantes().get(ind);
@@ -319,7 +319,7 @@ public class ConfJuegoController implements Initializable{
             cond2=true;
             int index = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
             apoyo = paraleloSelect.getEstudiantes().get(index);
-            if(participante.getMatricula() != null){
+            if(participante != null){
                 while(participante.getMatricula().equals(apoyo.getMatricula())){
                     int ind = (int)(Math.random() * paraleloSelect.getEstudiantes().size());
                     apoyo = paraleloSelect.getEstudiantes().get(ind);

@@ -275,23 +275,36 @@ public class JuegoViewController implements Initializable, Runnable {
     }
     public void juegoTerminado(){
         //conteo de los niveles alcanzados
-        
+        ArrayList<Juego> lJuegos = Archivar.readGames();
         if(alcanzado > 0 && alcanzado<juego.getNivelMax()){
             //premio de consolacion
             try{
+                juego.setCantidadPreguntasContestadas(cont);
+                juego.setComodinesUsados(comodines);
+                lJuegos.add(juego);
+                Archivar.writeGames(lJuegos);
                 goToPremioNivel();
             }catch(IOException e){
                 e.printStackTrace();
             }
+            
         } else if(alcanzado >= juego.getNivelMax()){
             //has ganado
             try{
+                juego.setCantidadPreguntasContestadas(juego.getNivelMax());
+                juego.setComodinesUsados(comodines);
+                lJuegos.add(juego);
+                Archivar.writeGames(lJuegos);
                 goToPremioCompleto();
             }catch(IOException e){
                 e.printStackTrace();
             }
         } else {
             //has perdido
+            juego.setCantidadPreguntasContestadas(cont);
+            juego.setComodinesUsados(comodines);
+            lJuegos.add(juego);
+            Archivar.writeGames(lJuegos);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("¡Has perdido!");
             alert.setHeaderText("Recuerda que puedes volver a participar :)");
@@ -312,6 +325,7 @@ public class JuegoViewController implements Initializable, Runnable {
             });
             alert.showAndWait();
         }
+        
     }
 
     public void comodin5050(){
