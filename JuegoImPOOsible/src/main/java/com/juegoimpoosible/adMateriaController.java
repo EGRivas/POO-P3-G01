@@ -24,6 +24,7 @@ public class adMateriaController  implements Initializable{
     private static Materia prevSubject;
     private static String prevTerm;
     private static String prevYear;
+    private String prevCode;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainMenu();
@@ -35,8 +36,9 @@ public class adMateriaController  implements Initializable{
         subchart.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 prevSubject = newValue;
+                prevCode = newValue.getCodigo(); // Guardar el código previo
                 subName.setText(newValue.getNombre());
-                subCode.setText(newValue.getCodigo());
+                subCode.setText(prevCode); // Establecer el código previo en el campo de texto
 
                 for (Termino t : terms) {
                     for (Materia m : t.getMaterias()) {
@@ -142,6 +144,15 @@ public class adMateriaController  implements Initializable{
                 Materia desesperacion = new Materia("12", "pablo", 5);
                 Termino terminoPrueba = new Termino(prevYear, prevTerm);
                 Termino terminoApunta = null;
+                if (!prevYear.equals(anio) || !prevTerm.equals(termi)) {
+                    showAlert(AlertType.ERROR, "Error de Edición", "No se permite editar el término.");
+                    return; // Detener la edición
+                }
+                if (!prevCode.equals(code)) {
+                    showAlert(AlertType.ERROR, "Error de Edición", "No se permite editar el código.");
+                    return; // Detener la edición
+                }
+
                 for(Termino t: terms){
                     if(t.equals(terminoPrueba)){
                         for (Materia q: subjects) {
