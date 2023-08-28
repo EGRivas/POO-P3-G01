@@ -79,8 +79,26 @@ public class adParaleloController implements Initializable {
 
     @FXML
     private void saveParalelo(MouseEvent event){
+        if (prevSubject == null) {
+            showAlert(Alert.AlertType.ERROR, "Error de Selección", "Por favor, seleccione una materia.");
+            return; // Detener la operación
+        }
+        String numeroParalelo = numParalelo.getText();
+        String archivo = nombreArchivo.getText();
+
+        if (numeroParalelo.isEmpty() || archivo.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error de Entrada", "Por favor, complete ambos parámetros.");
+            return; // Detener la operación
+        }
         ArrayList<Termino> terms = Archivar.readTerms();
         ArrayList<Materia> subjects = Archivar.readSubjects();
+        // Verificar si el número de paralelo ya existe en la misma materia
+        for (Paralelo p : prevSubject.getParalelos()) {
+            if (p.getNumero().equals(numeroParalelo)) {
+                showAlert(Alert.AlertType.ERROR, "Error de Paralelo", "Ya existe un paralelo con el mismo número en esta materia.");
+                return; // Detener la operación
+            }
+        }
         ArrayList<Estudiante> listaEst = new ArrayList<>();
         Paralelo paralelo = new Paralelo(numParalelo.getText());
         String ruta = "archivos/"+nombreArchivo.getText()+".csv";
@@ -105,8 +123,12 @@ public class adParaleloController implements Initializable {
                     listaEst.add(e1);
                 }
             } catch(IOException ex){
-                ex.printStackTrace();}
+                ex.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error de Archivo", "No se pudo encontrar el archivo en la ruta especificada.\nAsegúrese de que el archivo esté en la ruta JuegoImPOOsible/archivos.");
+                return;
+            }
         }
+
         paralelo.addEstudiantes(listaEst);
         subchart.getItems().remove(prevSubject);
 
@@ -126,11 +148,30 @@ public class adParaleloController implements Initializable {
         }
         Archivar.writeTerms(terms);
         Archivar.writeMaterias(subjects);
+        showAlert(Alert.AlertType.INFORMATION, "Paralelo Guardado", "El paralelo se ha guardado exitosamente.");
 
+
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML
     private void editParalelo(MouseEvent event){
+        if (availableParalelo.getSelectionModel().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error de Edición", "Por favor, seleccione un paralelo a editar.");
+            return; // Detener la operación
+        }
+        if (newNumber.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error de Edición", "Por favor, ingrese el número del nuevo paralelo.");
+            return; // Detener la operación
+        }
+        String nuevoNumeroParalelo = newNumber.getText();
+
         ArrayList<Termino> terms = Archivar.readTerms();
         ArrayList<Materia> subjects = Archivar.readSubjects();
         Paralelo p1 = new Paralelo(newNumber.getText());
@@ -158,8 +199,12 @@ public class adParaleloController implements Initializable {
                 }
             }
         }
-
-
+        for (Paralelo p : apuntaMateria.getParalelos()) {
+            if (!p.equals(pastParalelo) && p.getNumero().equals(nuevoNumeroParalelo)) {
+                showAlert(Alert.AlertType.ERROR, "Error de Edición", "Ya existe un paralelo con el mismo número en esta materia.");
+                return; // Detener la operación
+            }
+        }
         apuntaMateria.getParalelos().remove(pastParalelo);
         apuntaMateria2.getParalelos().remove(pastParalelo);
         p1.addEstudiantes(copyEstudiante);
@@ -170,14 +215,16 @@ public class adParaleloController implements Initializable {
         Archivar.writeMaterias(subjects);
         Archivar.writeTerms(terms);
 
-
-
+        showAlert(Alert.AlertType.INFORMATION, "Paralelo Editado", "El paralelo se ha editado exitosamente.");
 
     }
 
     @FXML
     private void eliminar(){
-
+        if (availableParalelo.getSelectionModel().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error de Eliminación", "Por favor, seleccione un paralelo a eliminar.");
+            return; // Detener la operación
+        }
         ArrayList<Termino> terms = Archivar.readTerms();
         ArrayList<Materia> subjects = Archivar.readSubjects();
         Paralelo p1 = new Paralelo(newNumber.getText());
@@ -213,6 +260,7 @@ public class adParaleloController implements Initializable {
         subchart.getItems().add(apuntaMateria2);
         Archivar.writeMaterias(subjects);
         Archivar.writeTerms(terms);
+        showAlert(Alert.AlertType.INFORMATION, "Paralelo Eliminado", "El paralelo se ha eliminado exitosamente.");
 
     }
 
